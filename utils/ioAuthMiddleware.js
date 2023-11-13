@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function ioAuthController(token) {
-    const [tokenType, tokenValue] = token.split(" ");
+  const [tokenType, tokenValue] = token.split(' ');
 
-    if (tokenType == "Bearer") {
-        const verified = jwt.verify(tokenValue, process.env.secret);
-
-        return {
-            error: null,
-            user: verified
-        }
-    }
+  if (tokenType == 'Bearer') {
+    const verified = jwt.verify(tokenValue, process.env.secret);
 
     return {
-        error: {
-            message: 'Not authorized'
-        }, user: null
-    }
-}
+      error: null,
+      user: verified,
+    };
+  }
+
+  return {
+    error: {
+      message: 'Try again; not authorized',
+    },
+    user: null,
+  };
+};

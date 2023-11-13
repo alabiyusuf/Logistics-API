@@ -5,10 +5,10 @@ async function editOrder(req, res) {
 
   const order = await shippingModel.findById(req.params.id);
 
-  if (!order) return res.status(404).send('Order not found');
+  if (!order) return res.status(404).send('Order cannot found');
 
   if (order.status == 'delivered')
-    return res.status(400).send('order delivered already');
+    return res.status(400).send('Order has been delivered already');
 
   const orderToEdit = await shippingModel.findByIdAndUpdate(
     req.params.id,
@@ -19,12 +19,10 @@ async function editOrder(req, res) {
     { new: true }
   );
 
-  res
-    .status(200)
-    .json({
-      message: 'Order edit successful, you can view the new status now',
-      editedOrder: orderToEdit,
-    });
+  res.status(200).json({
+    message: 'Order edit is successful, you can view the order status now',
+    editedOrder: orderToEdit,
+  });
 }
 
 module.exports = editOrder;

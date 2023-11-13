@@ -18,7 +18,9 @@ async function createNewRequest(req, res) {
     status: 'pending',
   });
 
-  res.status(201).json({ message: `Order created successfully`, newOrder });
+  res
+    .status(201)
+    .json({ message: `Order has been created successfully`, newOrder });
 }
 
 module.exports = createNewRequest;

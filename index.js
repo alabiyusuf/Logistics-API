@@ -44,7 +44,7 @@ io.on('connection', async (socket) => {
     if (userDetails.role !== 'rider')
       return callback({
         successful: false,
-        message: 'you are not a rider',
+        message: 'Not a rider, only riders are allowed to.',
       });
 
     if (!order)
@@ -56,13 +56,13 @@ io.on('connection', async (socket) => {
     if (order.status == payload.newStatus)
       return callback({
         successful: false,
-        message: `status is already ${payload.newStatus}`,
+        message: `Order status is already ${payload.newStatus}`,
       });
 
     if (order.status == 'delivered')
       return callback({
         successful: false,
-        message: 'order delivered already',
+        message: 'Order has delivered already',
       });
 
     const orderToEdit = await shippingModel.findByIdAndUpdate(
@@ -75,7 +75,7 @@ io.on('connection', async (socket) => {
     );
 
     const newNotif = await notificationModel.create({
-      message: `Your order of ${orderToEdit.itemName} is now ${payload.newStatus}`,
+      message: `The order of ${orderToEdit.itemName} is now ${payload.newStatus}`,
       sendTo: orderToEdit.customerId,
       order: payload.id,
     });
@@ -92,7 +92,7 @@ io.on('connection', async (socket) => {
 
     callback({
       successful: true,
-      message: 'order updated successfully',
+      message: 'Order has been updated successfully',
     });
   });
 

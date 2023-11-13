@@ -9,7 +9,7 @@ async function fetchAllOrders(req, res) {
     if (!orders)
       return res
         .status('404')
-        .send(`No orders at the moment, please check back again.`);
+        .send(`No current orders at the moment, check back again.`);
 
     return res.status(200).json({ allOrders: orders });
   }
@@ -19,7 +19,7 @@ async function fetchAllOrders(req, res) {
   if (!orders)
     return res
       .status('404')
-      .send(`No orders at the moment, please check back again.`);
+      .send(`No current orders at the moment, check back again.`);
 
   return res.status(200).json({ allOrders: orders });
 }
